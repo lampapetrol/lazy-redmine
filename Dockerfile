@@ -18,7 +18,7 @@ RUN npm ci --only=production
 # ---- Release ----
 FROM base AS release
 
-LABEL description="Let you fill redmine timesheet automatically by daterange"
+LABEL description="Let you fill jira timetracking automatically by daterange"
 
 COPY --from=build-stage /app/front/dist /app/front/dist
 COPY --from=build-stage /app/back /app/back
