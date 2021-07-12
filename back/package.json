@@ -1,10 +1,10 @@
 {
-  "name": "lazy-redmine",
-  "version": "0.1.0",
+  "name": "lazy-jira",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "export NODE_ENV=herow && nodemon server.js",
-    "start": "export NODE_ENV=herow && node server.js"
+    "dev": "export NODE_ENV=namr && nodemon server.js",
+    "start": "export NODE_ENV=namr && node server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",

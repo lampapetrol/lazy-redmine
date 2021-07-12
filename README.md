@@ -1,14 +1,14 @@
-# lazy-redmine
+# lazy-jira
 
-A simple webapp to rapidly fill redmine timesheets by daterange using it's [REST api](https://www.redmine.org/projects/redmine/wiki/Rest_api), requiring *user's api access key* which is not stored on the server.
+A simple webapp to rapidly fill jira timetracking by daterange using it's [REST api](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-time-tracking/).
 
 ## Build and run
 
 ### Using docker
 
 ```
-docker build -t lazy-redmine .
-docker run --rm -p 3000:3000 lazy-redmine
+docker build -t lazy-jira .
+docker run --rm -p 3000:3000 lazy-jira
 ```
 
 You can now open your browser on http://localhost:3000
