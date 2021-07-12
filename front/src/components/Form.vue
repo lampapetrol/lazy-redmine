@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lr">
-      <h1>Lazy Redmine</h1>
+      <h1>Lazy Jira</h1>
       <p>
         En retard pour remplir les temps du trimestre ? Y'a qu'à cliquer !
         <span
@@ -15,10 +15,19 @@
         :href="myTimesheetUrl"
         target="_blank"
       >
-        <button class="button secondary">Ma page de temps Redmine</button>
+        <button class="button secondary">Ma page de temps Jira</button>
       </a>
 
       <form>
+        <label>
+          Utilisateur API
+        </label>
+        <input
+          v-model="user"
+          placeholder="Mon user Jira"
+          @change="updateForm('user', $event.target.value)"
+        >
+
         <label>
           Clé d'accès API
           <a
@@ -28,7 +37,7 @@
         </label>
         <input
           v-model="key"
-          placeholder="Ma clé redmine"
+          placeholder="Ma clé Jira"
           @change="updateForm('key', $event.target.value)"
         >
 
@@ -121,8 +130,9 @@ export default {
       myApiKey: '',
       loading: false,
       feries: null,
+      user: '',
       key: '',
-      comments: 'added via Lazy Redmine',
+      comments: 'added via Lazy Jira',
       days: {},
       hours: 8,
       project: null,
@@ -132,6 +142,14 @@ export default {
     }
   },
   watch: {
+    user: function (newEnv, oldEnv) {
+      if (newEnv.length) {
+        this.getProjects(newEnv, null)
+      } else {
+        this.projects = []
+        this.project = null
+      }
+    },
     key: function (newEnv, oldEnv) {
       if (newEnv.length) {
         this.getProjects(newEnv, null)
@@ -157,6 +175,9 @@ export default {
   created () {
     const storedForm = this.openStorage()
     if (storedForm) {
+      if (storedForm.user) {
+        this.user = storedForm.user
+      }
       if (storedForm.key) {
         this.key = storedForm.key
       }
@@ -174,11 +195,11 @@ export default {
       }
       this.getProjects = debounce(this.getProjects, 500)
     }
-    httpClient.get('/redmineBaseUrl')
+    httpClient.get('/jiraBaseUrl')
       .then(response => {
         var base = response.data
-        this.myApiKey = base + '/my/api_key'
-        this.myTimesheetUrl = base + '/time_entries?user_id=me'
+        this.myApiKey = 'https://id.atlassian.com/manage-profile/security/api-tokens'
+        this.myTimesheetUrl = base + '/plugins/servlet/ac/timereports/timereports-report'
       })
   },
   mounted () {
